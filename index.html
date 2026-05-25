@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ma Vidéo</title>
+  <title>Pour toi 🌼</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -11,54 +12,179 @@
       box-sizing: border-box;
     }
 
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
     body {
-      min-height: 100vh;
-      background: #0f0f0f;
-      color: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      height: 100vh;
+      background: #fdf6ee;
+      font-family: "Lato", sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 40px;
-      padding: 40px 20px;
+      gap: 20px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Fleurs décoratives coins */
+    .flowers-top, .flowers-bottom {
+      position: fixed;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .flowers-top { top: -10px; }
+    .flowers-bottom { bottom: -10px; transform: scaleY(-1); }
+
+    .flowers-top .flower, .flowers-bottom .flower {
+      font-size: 5rem;
+      opacity: 0.55;
+      line-height: 1;
+    }
+    .flowers-top .flower:first-child { transform: rotate(-20deg) translate(-10px, 5px); }
+    .flowers-top .flower:last-child  { transform: rotate(20deg)  translate(10px,  5px); }
+
+    /* Petits fleurs flottantes */
+    .petal {
+      position: fixed;
+      top: 0;
+      font-size: 1.6rem;
+      opacity: 0;
+      animation: fall linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(-80px) rotate(0deg);   opacity: 0.85; }
+      80%  { opacity: 0.6; }
+      100% { transform: translateY(110vh) rotate(400deg); opacity: 0; }
+    }
+
+    /* Contenu principal au-dessus des décos */
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      width: 100%;
+      flex: 1;
+    }
+
+    .subtitle {
+      font-family: "Lato", sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #b5875a;
     }
 
     h1 {
-      font-size: clamp(1.8rem, 5vw, 3rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.6rem, 4vw, 3rem);
+      font-weight: 500;
+      color: #5c3317;
       text-align: center;
-      background: linear-gradient(135deg, #ffffff 0%, #888888 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      line-height: 1.2;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: #9c5c2e;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #c9956b;
+      font-size: 1.1rem;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: #d4a97a;
     }
 
     .video-wrapper {
       width: 100%;
-      max-width: 900px;
-      border-radius: 16px;
+      max-width: min(820px, 90vw);
+      max-height: 60vh;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-      background: #1a1a1a;
+      box-shadow:
+        0 4px 20px rgba(92, 51, 23, 0.15),
+        0 20px 60px rgba(92, 51, 23, 0.12);
+      border: 3px solid #e8c9a0;
+      background: #3b1f0e;
       position: relative;
+    }
+
+    .video-wrapper::before {
+      content: "🌼";
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8rem;
+      z-index: 2;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
     }
 
     video {
       width: 100%;
       display: block;
-      border-radius: 16px;
+    }
+
+    .caption {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: #9c6b3c;
+      text-align: center;
     }
 
   </style>
 </head>
 <body>
 
-  <h1>Mon Titre</h1>
+  <!-- Fleurs coins -->
+  <div class="flowers-top">
+    <span class="flower">🌼</span>
+    <span class="flower">🌼</span>
+  </div>
+  <div class="flowers-bottom">
+    <span class="flower">🌼</span>
+    <span class="flower">🌼</span>
+  </div>
 
-  <div class="video-wrapper" id="videoWrapper">
-    <video src="ma-video.mp4" controls autoplay muted loop></video>
+  <!-- Pétales qui tombent -->
+  <div class="petal" style="left:10%; animation-duration:8s;  animation-delay:-2s;">🌼</div>
+  <div class="petal" style="left:35%; animation-duration:10s; animation-delay:-5s;">🌼</div>
+  <div class="petal" style="left:60%; animation-duration:7s;  animation-delay:-3s;">🌼</div>
+  <div class="petal" style="left:85%; animation-duration:9s;  animation-delay:-1s;">🌼</div>
+
+  <div class="content">
+    <h1>Pour toi, <em>Lana</em></h1>
+    <p class="caption">Juste pour te faire sourire ♡</p>
+
+    <div class="divider">🌼</div>
+
+    <div class="video-wrapper">
+      <video src="thevideo.MOV" controls autoplay muted loop></video>
+    </div>
   </div>
 
 
